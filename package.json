@@ -1,0 +1,22 @@
+{
+  "name": "nw-demo",
+  "version": "0.0.1",
+  "main": "index.html",
+  "window": {
+    "title": "Sketch To Framer",
+    "toolbar": true,
+    "width": 600,
+    "height": 800
+  },
+  "dependencies": {
+    "fs": "0.0.2",
+    "jsonpath": "^0.2.0",
+    "sketchjs_with_sketchtool3.4": "^0.1.0",
+    "xml2js": "^0.4.15",
+    "yargs": "^3.29.0",
+    "async": "^1.5.0"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}

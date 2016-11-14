@@ -1,0 +1,139 @@
+<html>
+
+	<head>
+		<script src="../js/jquery-2.1.4.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+		<script src="../js/gs/TweenMax.min.js"></script>
+		<script src="../js/gs/plugins/DrawSVGPlugin.min.js"></script>
+		<script src="../js/gs/plugins/MorphSVGPlugin.min.js"></script>
+		<script src="../js/gs/plugins/findShapeIndex.js"></script>
+		<link rel="stylesheet" href="../js/jquery-ui.min.css">
+		<style>
+
+			#slider {
+			  width:400px;
+
+			  background-color: #222;
+			  position: absolute;
+				bottom:10px;
+			}
+
+			#slider, #slider a {
+			  background-image: none;
+			  border: 1px solid #555;
+			}
+			#slider a {
+			  background-color: #444;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+			 style="width:600px; height:600px; enable-background:new 0 0 100% 100%;" xml:space="preserve">
+		<style type="text/css">
+			.st2{fill:#fc0;stroke:#f7c741;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+			.f_st1{fill:rgba(12, 149, 249, .8);stroke:rgba(12, 149, 249, .0);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+			.f_st2{fill:rgba(16, 205, 249, .8);stroke:rgba(16, 205, 249, .0);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+			.f_st3{fill:#fff;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+			.st3{fill:none;stroke:#e66814;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+			.st4{fill:none;stroke:#e66814;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+		</style>
+
+
+		<path id="sketchOut" class="st2" d="M71.8,33h50l24.6,7.3l20.2,21.5l-70.7,94.1L27,59.5l20.2-19.3L71.8,33z"/>
+		<path id="sketchIn01" class="st4" d="M146.3,40.2L121.9,52H70.3L47.2,40.2"/>
+		<path id="sketchIn02" class="st4" d="M166.5,61.8L140,85H52.3L27,59.5"/>
+		<path id="sketchIn03" class="st4" d="M95.5,156.3L52.3,85l18-33"/>
+		<path id="sketchIn04" class="st4" d="M121.9,52L140,85l-44.5,71.3"/>
+
+
+		<path id="framer1" class="f_st1" d="M137,147.6l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L44.4,80.3c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+		c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C145.7,142,142.1,146.8,137,147.6z"/>
+
+		<path id="framer2" class="f_st2" d="M137,147.6l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L44.4,80.3c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+		c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C145.7,142,142.1,146.8,137,147.6z"/>
+
+		<path id="framer2b" class="f_st2" <path class="st4" d="M146,131.3l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L53.4,64c-0.8-5.2,2.8-10,7.9-10.8l71-10.9 c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C154.7,125.7,151.2,130.5,146,131.3z"/>
+
+
+		<path id="framer3" class="f_st2" <path class="st4" d="M146,131.3l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L53.4,64c-0.8-5.2,2.8-10,7.9-10.8l71-10.9 c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C154.7,125.7,151.2,130.5,146,131.3z"/>
+
+		<path id="framer3b" class="f_st2" d="M158.5,113.9l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L65.9,46.6c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+		c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C167.2,108.3,163.7,113.1,158.5,113.9z"/>
+
+
+		<path id="framer3b_copy" class="f_st2" d="M158.5,113.9l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L65.9,46.6c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+		c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C167.2,108.3,163.7,113.1,158.5,113.9z"/>
+
+		<path id="framer3_straight" class="f_st3" d="M158.5,113.9l-1.6,0.3c-5.5-1-76.3-30.5-82-34.2l-9-33.4c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+		c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C167.2,108.3,163.7,113.1,158.5,113.9z"/>
+
+		<path id="framer3_folded" class="f_st3" d="M158.5,113.9c-11.9,0.1-23.3-11.1-46.2-35.3c-6.1-6.5-11-17.5-20.2-16.3c-9.6,1.2-15.9,49.4-26.1-15.7 c-0.9-5.8,2.8-10,7.9-10.8l71-10.9c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C167.2,108.3,163.7,113.1,158.5,113.9z"/>
+
+		</svg> </br> </br>
+
+		<div id="slider"></div><div id="replay" style="position:relative; display:inline-block; text-align:right; cursor:pointer; color:#999999; font-family:Arial, Verdana, sans-serif; font-size:12px; bottom: 35px; margin-left: 24px;">replay <img id="replayIcon" src="http://greensock.com/_img/codepen/allDevicesBanner/replay.png" width="19" height="19" style="margin-left:2px; vertical-align: middle;" /></div>
+	</body>
+
+	<script>
+
+			// // findShapeIndex("#sketchOut", "#framer1");
+			$('#framer1').hide();
+			$('#framer2').hide();
+			$('#framer2b').hide();
+
+			$('#framer3').hide();
+			$('#framer3b').hide();
+
+			$('#framer3b_copy').hide();
+			$('#framer3_straight').hide();
+			$('#framer3_folded').hide();
+
+			// $('#framer4').hide();
+
+	       	var tl = new TimelineMax({onUpdate:updateSlider, paused:true});
+	        tl.insert(TweenLite.fromTo("#sketchIn01", 2, {drawSVG:"0% 100%"}, {drawSVG:"50% 50%"}));
+	        tl.insert(TweenLite.fromTo("#sketchIn02", 2, {drawSVG:"0% 100%"}, {drawSVG:"50% 50%"}));
+	        tl.insert(TweenLite.fromTo("#sketchIn03", 2, {drawSVG:"0% 100%"}, {drawSVG:"50% 50%"}));
+	        tl.insert(TweenLite.fromTo("#sketchIn04", 2, {drawSVG:"0% 100%"}, {drawSVG:"50% 50%"}));
+
+	        tl.add(TweenMax.fromTo("#sketchOut", .5, {display:''}, {fill:'rgba(25, 68, 124, 1)', stroke:'rgba(25, 68, 124, 1)',immediateRender:false, morphSVG:"#framer1"}));
+
+	        tl.add(TweenMax.fromTo("#framer2",.5, {display:''}, {immediateRender:false, morphSVG:"#framer2b"}))
+	        tl.add(TweenMax.fromTo("#framer3",.5, {display:''}, {immediateRender:false, morphSVG:"#framer3b"}))
+
+	        var tl2 = new TimelineMax({onUpdate:updateSlider});
+
+	        tl2.insert(TweenMax.fromTo("#framer3", .15, {divisplay:''}, {immediateRender:false, morphSVG:"#framer3_straight"}));
+	        tl2.insert(TweenMax.fromTo("#framer3b_copy",.5, {display:''}, {stroke:'rgba(255, 255, 255, .6)', fill:'rgba(255, 255, 255, .6)', immediateRender:false, morphSVG:"#framer3_folded"}));
+
+
+			tl.add(tl2)
+
+
+
+	        tl.play();
+
+
+        /* --- controls --- */
+        $slider = $("#slider");
+
+		$slider.slider({
+		  range: false,
+		  min: 0,
+		  max: 100,
+		  step: 0.02,
+		  value:0,
+		  slide: function ( event, ui ) {
+		    tl.progress( ui.value / 100 ).pause();
+		  }
+		});
+		function updateSlider() {
+			$slider.slider("value", tl.progress() * 100);
+		}
+
+	</script>
+
+</html>

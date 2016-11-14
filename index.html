@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SKETCH TO FRAMER</title>
+  </head>
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!-- <link rel="stylesheet" href="css/pure.css"> -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+  <link href="css/app.css" rel="stylesheet">
+
+  <script src="./js/jquery-2.1.4.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/gs/TweenMax.min.js"></script>
+  <script src="./js/gs/plugins/DrawSVGPlugin.min.js"></script>
+  <script src="./js/gs/plugins/MorphSVGPlugin.min.js"></script>
+  <script src="./js/gs/plugins/findShapeIndex.js"></script>
+  <script>
+
+    var $ = require("./js/jquery-2.1.4.min.js");
+
+
+    require('fs').chmodSync(process.cwd() + '/bin/node', 0777);
+    require('fs').chmodSync('./asyncS2F.js', '0755');
+
+    var s2f           = require('./asyncS2F')
+    var spawn         = require('child_process').spawn;
+    var fs            = require('fs');
+    var path          = require('path');
+    var nwPath        = process.execPath;
+    var nwDir         = path.dirname(nwPath);
+    var join          = require('path').join;
+  </script>
+
+  <style>
+
+    body {
+      padding: 20px;
+    }
+
+    container {
+      width: 95%;
+    }
+
+    h3 {
+      border-bottom: 1px solid #888;
+    }
+  </style>
+
+  <body>
+
+    <div id="title" class="jumbotron" style="width:100%; margin:0; padding:0;">
+      <h1>SKETCH TO FRAMER</h1>
+      <p>Convert Sketch Artboards to Framer Code</p>
+    </div>
+
+    <div id="app" class="container" >
+
+
+      <div id="selectFiles" class="row">
+        <h3>1. Select files to process</h3>
+      </div>
+
+      <div id="inputFiles" class="row">
+        <span class="file-input btn btn-file btn-default btn-sm outline" style="margin-bottom:5px;">
+        Browse&hellip; <input id="fileLoader" type="file" accept=".sketch" onchange="updateSelectedFiles()"/>
+        </span>
+        <div class="panel" id="artboardsContainer">
+          <div id="panelInputHeading" class="panel-heading">Artboards:</div>
+          <div class="panel-body" id="selectArtboards" readonly></div>
+        </div>
+      </div>
+
+
+      <!-- <div id='pages_artboards' class='row'> -->
+
+      <div id='step_two' class="row">
+        <h3>2. Select output folder</h3>
+      </div>
+
+      <div class="row">
+        <div class="input-group">
+            <span class="input-group-btn">
+              <span class="btn btn-file btn-default btn-sm outline">Select&hellip;
+                <input id="fileOutput" type="file" onchange="updateOutputFolder()" nwdirectory >
+              </span>
+            </span>
+            <input type="text" class="form-control" readonly>
+        </div>
+      </div>
+
+
+      <hr />
+
+      <div id='run' class='row'>
+        <div class="col-md-1"></div>
+        <div class="col-md-10" >
+          <button id="runButton" class="btn btn-primary btn-full raised" type="button" onclick="runS2F()">Run</button>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+
+
+
+    </div>
+
+    <div id="progressBar">
+      <div style="width:60%; height:99%; margin : auto; margin-top:auto;">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           style="width:100%; height:100%;" viewBox="0 0 200 200">
+          <style type="text/css">
+            .st2{fill:#fc0;stroke:#f7c741;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+            .f_st1{fill:rgba(12, 149, 249, .8);stroke:rgba(12, 149, 249, .0);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+            .f_st2{fill:rgba(16, 205, 249, .8);stroke:rgba(16, 205, 249, .0);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+            .f_st3{fill:#fff;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+            .st3{fill:none;stroke:#e66814;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+            .st4{fill:none;stroke:#e66814;stroke-width:2;stroke-linejoin:round;stroke-miterlimit:10;}
+          </style>
+
+
+          <path id="sketchOut" class="st2" d="M71.8,33h50l24.6,7.3l20.2,21.5l-70.7,94.1L27,59.5l20.2-19.3L71.8,33z"/>
+          <path id="sketchIn01" class="st4" d="M146.3,40.2L121.9,52H70.3L47.2,40.2"/>
+          <path id="sketchIn02" class="st4" d="M166.5,61.8L140,85H52.3L27,59.5"/>
+          <path id="sketchIn03" class="st4" d="M95.5,156.3L52.3,85l18-33"/>
+          <path id="sketchIn04" class="st4" d="M121.9,52L140,85l-44.5,71.3"/>
+
+
+          <path id="framer1" class="f_st1" d="M137,147.6l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L44.4,80.3c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+          c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C145.7,142,142.1,146.8,137,147.6z"/>
+
+          <path id="framer2" class="f_st2" d="M137,147.6l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L44.4,80.3c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+          c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C145.7,142,142.1,146.8,137,147.6z"/>
+
+          <path id="framer2b" class="f_st2" <path class="st4" d="M146,131.3l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L53.4,64c-0.8-5.2,2.8-10,7.9-10.8l71-10.9 c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C154.7,125.7,151.2,130.5,146,131.3z"/>
+
+
+          <path id="framer3" class="f_st2" <path class="st4" d="M146,131.3l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L53.4,64c-0.8-5.2,2.8-10,7.9-10.8l71-10.9 c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C154.7,125.7,151.2,130.5,146,131.3z"/>
+
+          <path id="framer3b" class="f_st2" d="M158.5,113.9l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L65.9,46.6c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+          c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C167.2,108.3,163.7,113.1,158.5,113.9z"/>
+
+
+          <path id="framer3b_copy" class="f_st2" d="M158.5,113.9l-71,10.9c-5.2,0.8-10-2.8-10.8-7.9L65.9,46.6c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+          c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C167.2,108.3,163.7,113.1,158.5,113.9z"/>
+
+          <path id="framer3_straight" class="f_st3" d="M158.5,113.9l-1.6,0.3c-5.5-1-76.3-30.5-82-34.2l-9-33.4c-0.8-5.2,2.8-10,7.9-10.8l71-10.9
+          c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C167.2,108.3,163.7,113.1,158.5,113.9z"/>
+
+          <path id="framer3_folded" class="f_st3" d="M158.5,113.9c-11.9,0.1-23.3-11.1-46.2-35.3c-6.1-6.5-11-17.5-20.2-16.3c-9.6,1.2-15.9,49.4-26.1-15.7 c-0.9-5.8,2.8-10,7.9-10.8l71-10.9c5.2-0.8,10,2.8,10.8,7.9l10.8,70.2C167.2,108.3,163.7,113.1,158.5,113.9z"/>
+        </svg>
+      </div>
+    </div>
+
+
+<script src="./js/app.js"></script>
+  </body>
+
+
+</html>
